@@ -6,7 +6,7 @@ pip install beautifulsoup4
 ```
 
 ## spider_meizitu.py
-use for download the hot images of [妹子图](http://www.mmjpg.com/home/)
+use for download the hot images of [妹子图](http://www.mmjpg.com/)
 
 ## spider_t66y*
 old drives will konw what this use for :)
