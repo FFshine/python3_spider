@@ -2,6 +2,13 @@ import requests
 from bs4 import BeautifulSoup
 import os
 
+proxy = '127.0.0.1:1080'
+
+proxies = {
+    'http': 'socks5h://' + proxy,
+    'https': 'socks5h://' + proxy
+}
+
 URL = 'http://t66y.com/thread0806.php?fid=8&search=&page='
 BRFOREURL = 'http://t66y.com/'
 
@@ -12,7 +19,7 @@ headers = {
 def loadUrl(url):
     '''用requests处理url
     返回得到的html'''
-    response = requests.get(url, headers=headers, timeout=10)
+    response = requests.get(url, headers = headers, proxies = proxies, timeout = 10)
     response.encoding = "gb18030"
     return response.text
 
@@ -50,7 +57,7 @@ def mkdir(name):
         os.makedirs(name)
         print(name + '\n\n')
     else:
-        print('目录已经存在！\n\n')
+        print('目录' + name + '已经存在！\n\n')
     return name
 
 
@@ -80,7 +87,7 @@ def downLoad(i, dir):
     name = i[-15:].replace('/', '')
     print(imageSrc)
     try:
-        file = requests.get(imageSrc,headers=headers, timeout=15).content
+        file = requests.get(imageSrc,headers=headers, proxies = proxies, timeout=15).content
         if file != "" and file !='bad request!':
             try:
                 f = open(dir + '/' + name, 'wb')
@@ -95,7 +102,7 @@ def downLoad(i, dir):
         pass
 
 
-def main(page, vote):
+def main(page=1, vote=1):
     '''功能拼装'''
     try:
         url = loadUrl(page)
@@ -122,12 +129,15 @@ def mainOfMain():
     os.system('clear')
     page = URL + str(input('请输入您要爬取的页数：'))
     vote = int(input('输入你想筛选的最低赞数：'))
+    mkdir('t66y')
+    os.chdir('t66y')
+    os.system('clear')
     main(page, vote)
 
 
 if __name__ == '__main__':
-    #mainOfMain()
-    for i in range(1, 101):
+    mainOfMain()
+    '''for i in range(1, 101):
         print(i)
         page = URL + str(i)
-        main(page, 15)
+        main(page, 15)'''
