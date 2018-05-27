@@ -72,7 +72,7 @@ def cookThePage(url):
         demo2 = demo.select('input')
         cook = []
         for i in demo2:
-            cook.append(i.get('src'))
+            cook.append(i.get('data-src'))
         return cook
     except:
         print('cookThePage出错！！')

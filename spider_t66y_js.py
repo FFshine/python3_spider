@@ -61,7 +61,7 @@ def cookPages(url):
     temp = soup.find('div',{'class': 'tpc_content do_not_catch'})
     imageUrl = temp.select('img')
     for i in imageUrl:
-        image = i.get('src')
+        image = i.get('data-src')
         imageUrlAndNames[image] = image[-15:].replace('/', '')
     return imageUrlAndNames
 
